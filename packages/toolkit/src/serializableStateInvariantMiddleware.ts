@@ -242,18 +242,6 @@ export function createSerializableStateInvariantMiddleware(
           ignoredPaths,
           cache
         )
-
-        if (foundStateNonSerializableValue) {
-          const { keyPath, value } = foundStateNonSerializableValue
-
-          console.error(
-            `A non-serializable value was detected in the state, in the path: \`${keyPath}\`. Value:`,
-            value,
-            `
-Take a look at the reducer(s) handling this action type: ${action.type}.
-(See https://redux.js.org/faq/organizing-state#can-i-put-functions-promises-or-other-non-serializable-items-in-my-store-state)`
-          )
-        }
       })
 
       measureUtils.warnIfExceeded()
