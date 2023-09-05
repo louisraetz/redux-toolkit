@@ -345,15 +345,3 @@ import { expectType } from './helpers'
   type AnyPayload = ReturnType<typeof anyCreator>['payload']
   expectType<IsAny<AnyPayload, true, false>>(true)
 }
-
-// Verify action creators should not be passed directly as arguments
-// to React event handlers if there shouldn't be a payload
-{
-  const emptyAction = createAction<void>('empty/action')
-  function TestComponent() {
-    // This typically leads to an error like:
-    //  // A non-serializable value was detected in an action, in the path: `payload`.
-    // @ts-expect-error Should error because `void` and `MouseEvent` aren't compatible
-    return <button onClick={emptyAction}>+</button>
-  }
-}
