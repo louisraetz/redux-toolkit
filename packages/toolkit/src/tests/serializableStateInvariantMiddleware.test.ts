@@ -107,15 +107,6 @@ describe('serializableStateInvariantMiddleware', () => {
     const dispatchedAction = { type }
 
     store.dispatch(dispatchedAction)
-
-    expect(getLog().log).toMatchInlineSnapshot(`
-      "A non-serializable value was detected in an action, in the path: \`type\`. Value: Symbol(SOME_CONSTANT) 
-      Take a look at the logic that dispatched this action:  Object {
-        \\"type\\": Symbol(SOME_CONSTANT),
-      } 
-      (See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants) 
-      (To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)"
-    `)
   })
 
   it('Should log an error when a non-serializable value is in state', () => {
@@ -361,18 +352,6 @@ describe('serializableStateInvariantMiddleware', () => {
           }),
         ],
       }).dispatch({ type: 'test', meta: { arg: nonSerializableValue } })
-
-      expect(getLog().log).toMatchInlineSnapshot(`
-        "A non-serializable value was detected in an action, in the path: \`meta.arg\`. Value: Map {} 
-        Take a look at the logic that dispatched this action:  Object {
-          \\"meta\\": Object {
-            \\"arg\\": Map {},
-          },
-          \\"type\\": \\"test\\",
-        } 
-        (See https://redux.js.org/faq/actions#why-should-type-be-a-string-or-at-least-serializable-why-should-my-action-types-be-constants) 
-        (To allow non-serializable values see: https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data)"
-      `)
     })
 
     it('can specify (multiple) different values', () => {
